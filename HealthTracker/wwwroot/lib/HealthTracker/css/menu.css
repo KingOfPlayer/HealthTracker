@@ -44,6 +44,7 @@ body:has(div.SideMenuRoot.show) {
 }
 
 .SideMenu .UI.Toggler {
+    color: black;
     margin:1rem;
 }
 
@@ -68,7 +69,13 @@ body:has(div.SideMenuRoot.show) {
     width: auto !important;
 }
 
-@media only screen and (max-width: 600px) {
+.SideMenu > .p-2 > p > a{
+    color: black;
+    padding: 0px 3rem 0px 3rem;
+    font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 768px) {
     .SideMenuRoot .SideMenu {
         background-color: var(--color-seondary);
         height: 100%;
@@ -83,6 +90,10 @@ body:has(div.SideMenuRoot.show) {
         width: 0%;
         overflow-y: visible;
         overflow-x: hidden;
+    }
+
+    .SideMenu .UI.Toggler {
+        margin: 1rem;
     }
 }
 

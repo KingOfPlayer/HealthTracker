@@ -10,13 +10,8 @@
                     toTarget = target.attr("UI-element");
                 }
                 $(toTarget).toggleClass("show");
-                console.log(target.get());
-                console.log(toTarget);
                 return false;
             }
-        } else {
-            console.log(target);
-            return false;
         }
     });
 });
