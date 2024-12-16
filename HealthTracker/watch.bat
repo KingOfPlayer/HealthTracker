@@ -1,0 +1,1 @@
+dotnet watch --environment Development --urls="https://localhost:443;http://localhost:80"

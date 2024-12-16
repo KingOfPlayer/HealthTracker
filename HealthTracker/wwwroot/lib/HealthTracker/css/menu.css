@@ -1,0 +1,95 @@
+﻿@import url("theme.css");
+
+.SideMenuRoot {
+    background: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    visibility: hidden;
+    display: flex;
+    opacity: 0;
+    transition: opacity 0.2s ease-in,visibility 0.2s allow-discrete;
+    z-index:10;
+}
+
+.SideMenuRoot > .SideMenu {
+    background-color: var(--color-seondary);
+    height: 100%;
+    width: 0px;
+    overflow-y: visible;
+    overflow-x: hidden;
+    transition: width 0.5s ease-in;
+}
+
+.SideMenuRoot.show .SideMenu {
+    width: 400px;
+}
+
+.SideMenuRoot .SideMenuToggler {
+    height: 100%;
+    width: auto;
+    overflow-y: visible;
+    overflow-x: hidden;
+    flex-grow: 1;
+}
+
+.SideMenuRoot.show {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.2s ease-out;
+}
+
+body:has(div.SideMenuRoot.show) {
+    overflow-y: hidden;
+}
+
+.SideMenu .UI.Toggler {
+    margin:1rem;
+}
+
+.SideMenuRoot .SideMenuIcon {
+    height: 250px;
+    width: 250px;
+}
+
+.SideMenuRoot .SideMenuTitle {
+    font-size: 2rem;
+    font-variant-caps: all-petite-caps;
+}
+
+.SideMenuIcon .img {
+    height: 250px;
+    width: 250px;
+}
+
+.SideMenuRoot .SideMenuIcon i:before {
+    display:block;
+    height: 300px !important;
+    width: auto !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .SideMenuRoot .SideMenu {
+        background-color: var(--color-seondary);
+        height: 100%;
+        width: 100%;
+        overflow-y: visible;
+        overflow-x: hidden;
+    }
+
+    .SideMenuRoot .SideMenu.Toggler {
+        background-color: darkgray;
+        height: 100%;
+        width: 0%;
+        overflow-y: visible;
+        overflow-x: hidden;
+    }
+}
+
+.navbar{
+    background-color: var(--color-primary) !important;
+}
+
+.navbar * {
+    color: white !important;
+}
