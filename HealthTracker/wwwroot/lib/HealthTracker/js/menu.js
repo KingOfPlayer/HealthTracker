@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿$(document).on('ready',function () {
     $(document.body).on("click", function (e) {
         let target = $(e.target.closest(".UI"));
         if (target.hasClass("UI")) {

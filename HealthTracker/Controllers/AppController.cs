@@ -8,5 +8,13 @@ namespace HealthTracker.Controllers
         {
             return View();
         }
+        public IActionResult NewDevice()
+        {
+            return View();
+        }
+        public IActionResult ViewDevices()
+        {
+            return View();
+        }
     }
 }
