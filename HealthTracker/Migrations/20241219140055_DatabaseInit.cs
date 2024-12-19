@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HealthTracker.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class DatabaseInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,6 +39,12 @@ namespace HealthTracker.Migrations
                 {
                     table.PrimaryKey("PK_PushNotificationKeys", x => x.PushNotificationKeyId);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Devices_DeviceGuid",
+                table: "Devices",
+                column: "DeviceGuid",
+                unique: true);
         }
 
         /// <inheritdoc />

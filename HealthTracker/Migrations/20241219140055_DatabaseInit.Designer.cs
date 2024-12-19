@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealthTracker.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20241219080842_init")]
-    partial class init
+    [Migration("20241219140055_DatabaseInit")]
+    partial class DatabaseInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,6 +43,9 @@ namespace HealthTracker.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DeviceId");
+
+                    b.HasIndex("DeviceGuid")
+                        .IsUnique();
 
                     b.ToTable("Devices");
                 });

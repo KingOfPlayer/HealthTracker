@@ -41,10 +41,15 @@ namespace HealthTracker.Controllers
             }
             return View(newDeviceDto);
         }
-        public IActionResult DeviceList()
+        public async Task<IActionResult> DeviceList()
         {
-            List<Device> deviceList = serviceManager.DeviceService.GetDeviceList();
+            List<Device> deviceList = await serviceManager.DeviceService.GetDeviceList();
             return View(deviceList);
+        }
+        public IActionResult RemoveDevice([FromQuery(Name = "device-guid")] Guid guid)
+        {
+            serviceManager.DeviceService.RemoveDevice(guid);
+            return RedirectToAction("DeviceList");
         }
     }
 }

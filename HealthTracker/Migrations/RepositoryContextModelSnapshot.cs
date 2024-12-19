@@ -41,6 +41,9 @@ namespace HealthTracker.Migrations
 
                     b.HasKey("DeviceId");
 
+                    b.HasIndex("DeviceGuid")
+                        .IsUnique();
+
                     b.ToTable("Devices");
                 });
 

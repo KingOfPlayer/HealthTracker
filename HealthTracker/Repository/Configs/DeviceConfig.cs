@@ -9,6 +9,7 @@ namespace HealthTracker.Repository.Configs
         public void Configure(EntityTypeBuilder<Device> builder)
         {
             builder.Property(D => D.DeviceGuid).HasDefaultValueSql("NEWID()");
+            builder.HasIndex(u => u.DeviceGuid).IsUnique();
         }
     }
 }

@@ -4,9 +4,10 @@ namespace HealthTracker.Repository.Interfaces
 {
     public interface IDeviceRepository
     {
-        void CreateDevice(Device device);
-        void UpdateDevice(Device device);
-        void RemoveDevice(Device device);
+        Task CreateDevice(Device device);
+        Task UpdateDevice(Device device);
+        Task RemoveDevice(Device device);
+        Task RemoveDevice(Guid guid);
 
         IQueryable<Device> GetDevices();
 

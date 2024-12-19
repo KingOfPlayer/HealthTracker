@@ -13,16 +13,16 @@ namespace HealthTracker.Repository
             this.repositoryContext = repositoryContext;
         }
 
-        public void Create<T>(T entity) where T : class
+        public async Task Create<T>(T entity) where T : class
         {
-            repositoryContext.Set<T>().Add(entity);
-            Save<T>();
+            await repositoryContext.Set<T>().AddAsync(entity);
+            await Save<T>();
         }
 
-        public void Remove<T>(T entity) where T : class
+        public async Task Remove<T>(T entity) where T : class
         {
             repositoryContext.Remove<T>(entity);
-            Save<T>();
+            await Save<T>();
         }
 
         public IQueryable<T> GetAll<T>() where T : class
@@ -35,15 +35,15 @@ namespace HealthTracker.Repository
             return repositoryContext.Set<T>().Where(expression).AsNoTracking();
         }
 
-        public void Save<T>() where T : class
+        public async Task Save<T>() where T : class
         {
-            repositoryContext.SaveChanges();
+            await repositoryContext.SaveChangesAsync();
         }
 
-        public void Update<T>(T entity) where T : class
+        public async Task Update<T>(T entity) where T : class
         {
             repositoryContext.Update<T>(entity);
-            Save<T>();
+            await Save<T>();
         }
     }
 }

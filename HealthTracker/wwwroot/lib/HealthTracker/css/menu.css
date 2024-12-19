@@ -69,10 +69,12 @@ body:has(div.SideMenuRoot.show) {
     width: auto !important;
 }
 
-.SideMenu > .p-2 > p > a{
+.SideMenu > .p-2 > p > a {
     color: black;
     padding: 0px 3rem 0px 3rem;
     font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 @media only screen and (max-width: 768px) {

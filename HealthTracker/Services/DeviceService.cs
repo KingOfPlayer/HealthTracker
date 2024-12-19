@@ -1,6 +1,7 @@
 ﻿using HealthTracker.Entities.Models.Device;
 using HealthTracker.Repository.Interfaces;
 using HealthTracker.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace HealthTracker.Services
 {
@@ -13,14 +14,19 @@ namespace HealthTracker.Services
             this.repositoryManager = repositoryManager;
         }
 
-        public void AddNewDevice(Device newDevice)
+        public async Task AddNewDevice(Device newDevice)
         {
-            repositoryManager.DeviceRepository.CreateDevice(newDevice);
+            await repositoryManager.DeviceRepository.CreateDevice(newDevice);
         }
 
-        public List<Device> GetDeviceList()
+        public async Task<List<Device>> GetDeviceList()
         {
-            return repositoryManager.DeviceRepository.GetDevices().ToList();
+            return await repositoryManager.DeviceRepository.GetDevices().ToListAsync();
+        }
+
+        public async Task RemoveDevice(Guid guid)
+        {
+            await repositoryManager.DeviceRepository.RemoveDevice(guid);
         }
     }
 }
