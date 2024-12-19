@@ -15,12 +15,14 @@ namespace HealthTracker.Migrations
                 name: "Devices",
                 columns: table => new
                 {
-                    DeviceGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DeviceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DeviceGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
                     DeviceName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Devices", x => x.DeviceGuid);
+                    table.PrimaryKey("PK_Devices", x => x.DeviceId);
                 });
 
             migrationBuilder.CreateTable(

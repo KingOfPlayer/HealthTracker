@@ -1,9 +1,11 @@
-using HealthTracker.Extentions;
+using HealthTracker.Infrastructure.Extentions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.ConfigureSqlConnection(builder);
+builder.Services.ConfigureRepositories();
+builder.Services.ConfigureServices();
 
 var app = builder.Build();
 

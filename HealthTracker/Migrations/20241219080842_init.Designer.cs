@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealthTracker.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20241217234234_init")]
+    [Migration("20241219080842_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -27,15 +27,22 @@ namespace HealthTracker.Migrations
 
             modelBuilder.Entity("HealthTracker.Entities.Models.Device.Device", b =>
                 {
+                    b.Property<int>("DeviceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DeviceId"));
+
                     b.Property<Guid>("DeviceGuid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
 
                     b.Property<string>("DeviceName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("DeviceGuid");
+                    b.HasKey("DeviceId");
 
                     b.ToTable("Devices");
                 });

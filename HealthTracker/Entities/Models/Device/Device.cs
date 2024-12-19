@@ -6,7 +6,7 @@ namespace HealthTracker.Entities.Models.Device
     {
         [Key]
         public Guid DeviceGuid { get; set; }
-
-        public required string DeviceName { get; set; } = "Device";
+        [Required]
+        public string DeviceName { get; set; } = "Device";
     }
 }

@@ -2,5 +2,6 @@
 {
     public interface IRepositoryManager
     {
+        IDeviceRepository DeviceRepository { get; }
     }
 }

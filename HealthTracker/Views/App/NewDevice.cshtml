@@ -1,1 +1,42 @@
-﻿
+﻿@using HealthTracker.Entities.Dto.Device
+@model NewDeviceDto
+
+<div>
+    <div>
+        <h2>
+            New Device
+        </h2>
+    </div>
+    <form asp-action="NewDevice" method="post" class="needs-validation" novalidate>
+        <div class="form-floating mb-3">
+            <input asp-for="DeviceName" class="form-control" required>
+            <div class="invalid-feedback">
+                Type a Device Name
+            </div>
+            <label asp-for="DeviceName">Device Name</label>
+
+        </div>
+        <button type="submit" class="btn btn-primary w-100">New Device Add <i class="fa-solid fa-plus"></i></button>
+    </form>
+</div>
+
+<script>
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>

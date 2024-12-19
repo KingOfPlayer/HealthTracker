@@ -1,0 +1,30 @@
+﻿@using HealthTracker.Entities.Models.Device
+@model List<Device>
+
+<div>
+    <div>
+        <h2>
+            New Device
+        </h2>
+    </div>
+    <table class="table table-striped my-3">
+        <thead>
+            <tr>
+                <th scope="col">Device GUID</th>
+                <th scope="col">Device Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(Device device in Model)
+            {
+                <tr>
+                    <td>@device.DeviceGuid</td>
+                    <td>@device.DeviceName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p class="px-5">
+        @Model.Count() Count Device Listed
+    </p>
+</div>

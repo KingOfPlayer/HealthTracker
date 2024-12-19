@@ -24,15 +24,22 @@ namespace HealthTracker.Migrations
 
             modelBuilder.Entity("HealthTracker.Entities.Models.Device.Device", b =>
                 {
+                    b.Property<int>("DeviceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DeviceId"));
+
                     b.Property<Guid>("DeviceGuid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
 
                     b.Property<string>("DeviceName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("DeviceGuid");
+                    b.HasKey("DeviceId");
 
                     b.ToTable("Devices");
                 });
