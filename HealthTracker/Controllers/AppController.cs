@@ -38,5 +38,18 @@ namespace HealthTracker.Controllers
             await serviceManager.DeviceService.RemoveDevice(new DeviceGuidDto(guid));
             return RedirectToAction("DeviceList");
         }
+
+        public async Task<IActionResult> DeviceDetails(Guid id)
+        {
+            DeviceDetailsDto? deviceDetailsDto = await serviceManager.DeviceService.GetDeviceDetails(new DeviceGuidDto(id));
+            if (deviceDetailsDto == null)
+                return RedirectToAction("DeviceList");
+
+            ViewBag.DeviceName = deviceDetailsDto.DeviceName;
+            ViewBag.DeviceGuid = deviceDetailsDto.DeviceGuid;
+            IEnumerable<DeviceDataDto> deviceDataDtos = await serviceManager.DeviceDataService.GetDeviceDatas(deviceDetailsDto);
+            ViewBag.DeviceDatas = deviceDataDtos;
+            return View();
+        }
     }
 }

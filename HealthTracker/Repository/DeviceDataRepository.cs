@@ -1,5 +1,6 @@
 ﻿using HealthTracker.Entities.Models.Device;
 using HealthTracker.Repository.Interfaces;
+using System.Collections.Generic;
 
 namespace HealthTracker.Repository
 {
@@ -11,7 +12,7 @@ namespace HealthTracker.Repository
         public IQueryable<DeviceData> GetAllDeviceDatas() => GetAll<DeviceData>();
         public IQueryable<DeviceData> GetDeviceDatas(int DeviceId)
         {
-            return Query<DeviceData>(D => D.DeviceDataId == DeviceId);
+            return Query<DeviceData>(D => D.DeviceId == DeviceId);
         }
     }
 }

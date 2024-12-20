@@ -14,7 +14,7 @@ namespace HealthTracker.ApiControllers
 
         [HttpPost("data")]
         [Consumes("application/json")]
-        public async Task<IActionResult> NewData([FromBody] DeviceDataDto deviceDataDto)
+        public async Task<IActionResult> NewData([FromBody] NewDeviceDataDto deviceDataDto)
         {
 
             Guid DeviceGuid;
@@ -34,6 +34,23 @@ namespace HealthTracker.ApiControllers
             await serviceManager.DeviceDataService.CreateDeviceData(deviceDataDto, deviceDetailsDto);
 
             return Ok();
+        }
+
+        [HttpGet("data")]
+        public async Task<IActionResult> NewData()
+        {
+
+            Guid DeviceGuid;
+            if (!Guid.TryParse(Request.Headers["Device-Guid"].ToString(), out DeviceGuid))
+                return BadRequest("Bad Device Guid");
+
+            DeviceDetailsDto deviceDetailsDto = await serviceManager.DeviceService.GetDeviceDetails(new DeviceGuidDto(DeviceGuid));
+            if (deviceDetailsDto == null)
+                return NotFound("Invalid Device Guid");
+
+            IEnumerable<DeviceDataDto> deviceDataDtos = await serviceManager.DeviceDataService.GetDeviceDatas(deviceDetailsDto);
+
+            return new JsonResult(deviceDataDtos);
         }
     }
 }

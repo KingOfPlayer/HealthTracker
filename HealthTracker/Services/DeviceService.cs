@@ -32,5 +32,10 @@ namespace HealthTracker.Services
         {
             return await repositoryManager.DeviceRepository.GetDevice(deviceGuidDto.DeviceGuid).Select(x => new DeviceDetailsDto(x.DeviceId,x.DeviceGuid, x.DeviceName)).FirstOrDefaultAsync();
         }
+
+        public async Task<DeviceDto?> GetDevice(DeviceGuidDto deviceGuidDto)
+        {
+            return await repositoryManager.DeviceRepository.GetDevice(deviceGuidDto.DeviceGuid).Select(x => new DeviceDto(x.DeviceGuid, x.DeviceName)).FirstOrDefaultAsync();
+        }
     }
 }

@@ -3,17 +3,18 @@
 <div>
     <div>
         <h1>
-            Device Details - @ViewBag["DeviceName"]
+            Device Details - @ViewBag.DeviceName
         </h1>
         <p>
-            Device Guid - @ViewBag["DeviceGuid"]
+            Device Guid - @ViewBag.DeviceGuid
         </p>
     </div>
 
     <div>
-        @foreach (DeviceDataDto device in ViewBag["DeviceDatas"])
+        @foreach (DeviceDataDto device in ViewBag.DeviceDatas)
         {
             <p>
+                @device.DateTime <br />
                 @device.Spo2 <br />
                 @device.Bpm <br />
                 @device.Temp <br />
