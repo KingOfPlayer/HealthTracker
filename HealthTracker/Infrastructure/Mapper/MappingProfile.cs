@@ -1,16 +1,21 @@
 ﻿using AutoMapper;
-
 using HealthTracker.Entities.Dto.Device;
 using HealthTracker.Entities.Models.Device;
 
-namespace MyDentalHealth.Extentions.Mapper
+namespace HealthTracker.Infrastructure.Mapper
 {
-	public class MappingProfile : Profile
-	{
-		public MappingProfile()
-		{
-			//New Device
-			CreateMap<NewDeviceDto, Device>();
-		}
-	}
+    public class MappingProfile : Profile
+    {
+        public MappingProfile()
+        {
+            //Device
+            CreateMap<DeviceDto, Device>().ReverseMap();
+            CreateMap<NewDeviceDto, Device>().ReverseMap();
+            CreateMap<DeviceGuidDto, Device>().ReverseMap();
+
+            //Device Data
+            CreateMap<DeviceDataDto, DeviceDto>().ReverseMap();
+            CreateMap<NewDeviceDataDto, DeviceDto>().ReverseMap();
+        }
+    }
 }

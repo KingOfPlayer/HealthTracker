@@ -1,11 +1,11 @@
-﻿using HealthTracker.Entities.Models.Device;
+﻿using HealthTracker.Entities.Dto.Device;
 
 namespace HealthTracker.Services.Interfaces
 {
     public interface IDeviceService
     {
-        Task AddNewDevice(Device newDevice);
-        Task<List<Device>> GetDeviceList();
-        Task RemoveDevice(Guid guid);
+        Task AddNewDevice(NewDeviceDto newDeviceDto);
+        Task<IEnumerable<DeviceDto>> GetDeviceList();
+        Task RemoveDevice(DeviceGuidDto deviceGuidDto);
     }
 }

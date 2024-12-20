@@ -1,0 +1,30 @@
+﻿@using HealthTracker.Entities.Dto.Device
+
+<div>
+    <div>
+        <h1>
+            Device Details - @ViewBag["DeviceName"]
+        </h1>
+        <p>
+            Device Guid - @ViewBag["DeviceGuid"]
+        </p>
+    </div>
+
+    <div>
+        @foreach (DeviceDataDto device in ViewBag["DeviceDatas"])
+        {
+            <p>
+                @device.Spo2 <br />
+                @device.Bpm <br />
+                @device.Temp <br />
+                @device.Humidity <br />
+            </p>
+        }
+    </div>
+    <div>
+        <!-- Spo2 Bpm -->
+    </div>
+    <div>
+        <!-- Humidty -->
+    </div>
+</div>

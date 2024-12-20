@@ -1,9 +1,9 @@
-﻿using HealthTracker.Repository;
+﻿using HealthTracker.Infrastructure.Mapper;
+using HealthTracker.Repository;
 using HealthTracker.Repository.Interfaces;
 using HealthTracker.Services;
 using HealthTracker.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using MyDentalHealth.Extentions.Mapper;
 
 namespace HealthTracker.Infrastructure.Extentions
 {

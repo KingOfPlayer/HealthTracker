@@ -1,21 +1,13 @@
 ﻿using AutoMapper;
 using HealthTracker.Entities.Dto.Device;
-using HealthTracker.Entities.Models.Device;
 using HealthTracker.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace HealthTracker.Controllers
 {
-    public class AppController : Controller
+    public class AppController(IServiceManager serviceManager) : Controller
     {
-        private readonly IServiceManager serviceManager;
-        private readonly IMapper mapper;
-        public AppController(IServiceManager serviceManager, IMapper mapper)
-        {
-            this.serviceManager = serviceManager;
-            this.mapper = mapper;
-        }
+        private readonly IServiceManager serviceManager = serviceManager;
 
         public IActionResult Index()
         {
@@ -31,24 +23,19 @@ namespace HealthTracker.Controllers
         {
             if (ModelState.IsValid && newDeviceDto.DeviceName is not null)
             {
-                Device? newDevice = new Device();
-                mapper.Map(newDeviceDto, newDevice);
-                if (newDevice is not null)
-                {
-                    await serviceManager.DeviceService.AddNewDevice(newDevice);
-                    return RedirectToAction("DeviceList");
-                }
+                await serviceManager.DeviceService.AddNewDevice(newDeviceDto);
+                return RedirectToAction("DeviceList");
             }
             return View(newDeviceDto);
         }
         public async Task<IActionResult> DeviceList()
         {
-            List<Device> deviceList = await serviceManager.DeviceService.GetDeviceList();
+            IEnumerable<DeviceDto> deviceList = await serviceManager.DeviceService.GetDeviceList();
             return View(deviceList);
         }
         public async Task<IActionResult> RemoveDevice([FromQuery(Name = "device-guid")] Guid guid)
         {
-            await serviceManager.DeviceService.RemoveDevice(guid);
+            await serviceManager.DeviceService.RemoveDevice(new DeviceGuidDto(guid));
             return RedirectToAction("DeviceList");
         }
     }

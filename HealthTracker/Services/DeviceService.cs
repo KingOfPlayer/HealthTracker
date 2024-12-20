@@ -1,32 +1,31 @@
-﻿using HealthTracker.Entities.Models.Device;
+﻿using AutoMapper;
+using HealthTracker.Entities.Dto.Device;
+using HealthTracker.Entities.Models.Device;
 using HealthTracker.Repository.Interfaces;
 using HealthTracker.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace HealthTracker.Services
 {
-    public class DeviceService : IDeviceService
+    public class DeviceService(IRepositoryManager repositoryManager, IMapper mapper) : IDeviceService
     {
-        private IRepositoryManager repositoryManager;
+        private readonly IRepositoryManager repositoryManager = repositoryManager;
+        private readonly IMapper mapper = mapper;
 
-        public DeviceService(IRepositoryManager repositoryManager)
+        public async Task AddNewDevice(NewDeviceDto newDeviceDto)
         {
-            this.repositoryManager = repositoryManager;
+            Device device = mapper.Map<Device>(newDeviceDto);
+            await repositoryManager.DeviceRepository.CreateDevice(device);
         }
 
-        public async Task AddNewDevice(Device newDevice)
+        public async Task<IEnumerable<DeviceDto>> GetDeviceList()
         {
-            await repositoryManager.DeviceRepository.CreateDevice(newDevice);
+            return await repositoryManager.DeviceRepository.GetDevices().Select(x => new DeviceDto(x.DeviceGuid, x.DeviceName)).ToListAsync();
         }
 
-        public async Task<List<Device>> GetDeviceList()
+        public async Task RemoveDevice(DeviceGuidDto deviceGuidDto)
         {
-            return await repositoryManager.DeviceRepository.GetDevices().ToListAsync();
-        }
-
-        public async Task RemoveDevice(Guid guid)
-        {
-            await repositoryManager.DeviceRepository.RemoveDevice(guid);
+            await repositoryManager.DeviceRepository.RemoveDevice(deviceGuidDto.DeviceGuid);
         }
     }
 }

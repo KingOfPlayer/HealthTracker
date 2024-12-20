@@ -1,16 +1,12 @@
-﻿using HealthTracker.Entities.Models.Device;
+﻿using HealthTracker.Entities.Dto.Device;
+using HealthTracker.Entities.Models.Device;
 using HealthTracker.Repository.Interfaces;
 using System.Linq.Expressions;
 
 namespace HealthTracker.Repository
 {
-    public class DeviceRepository : RepositoryBase, IDeviceRepository
+    public class DeviceRepository(RepositoryContext repositoryContext) : RepositoryBase(repositoryContext), IDeviceRepository
     {
-        public DeviceRepository(RepositoryContext repositoryContext) : base(repositoryContext)
-        {
-
-        }
-
         public async Task CreateDevice(Device device) => await Create<Device>(device);
         public async Task RemoveDevice(Device device) => await Remove<Device>(device);
         public async Task RemoveDevice(Guid guid)

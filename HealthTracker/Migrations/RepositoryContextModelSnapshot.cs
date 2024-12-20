@@ -47,6 +47,39 @@ namespace HealthTracker.Migrations
                     b.ToTable("Devices");
                 });
 
+            modelBuilder.Entity("HealthTracker.Entities.Models.Device.DeviceData", b =>
+                {
+                    b.Property<int>("DeviceDataId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DeviceDataId"));
+
+                    b.Property<int>("Bpm")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("DeviceGuid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("DeviceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Humidity")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Spo2")
+                        .HasColumnType("real");
+
+                    b.Property<int>("Temp")
+                        .HasColumnType("int");
+
+                    b.HasKey("DeviceDataId");
+
+                    b.HasIndex("DeviceId");
+
+                    b.ToTable("DeviceDatas");
+                });
+
             modelBuilder.Entity("HealthTracker.Entities.Models.PushNotification.PushNotificationKey", b =>
                 {
                     b.Property<int>("PushNotificationKeyId")
@@ -70,6 +103,17 @@ namespace HealthTracker.Migrations
                     b.HasKey("PushNotificationKeyId");
 
                     b.ToTable("PushNotificationKeys");
+                });
+
+            modelBuilder.Entity("HealthTracker.Entities.Models.Device.DeviceData", b =>
+                {
+                    b.HasOne("HealthTracker.Entities.Models.Device.Device", "Device")
+                        .WithMany()
+                        .HasForeignKey("DeviceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Device");
                 });
 #pragma warning restore 612, 618
         }

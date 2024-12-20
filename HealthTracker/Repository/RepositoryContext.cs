@@ -5,15 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HealthTracker.Repository
 {
-    public class RepositoryContext : DbContext
+    public class RepositoryContext(DbContextOptions<RepositoryContext> options) : DbContext(options)
     {
-        DbSet<PushNotificationKey> PushNotificationKeys { get; set; }
-        DbSet<Device> Devices { get; set; }
-
-        public RepositoryContext(DbContextOptions<RepositoryContext> options) : base(options)
-        {
-
-        }
+#pragma warning disable IDE0051 // Remove unused private members
+        private DbSet<PushNotificationKey> PushNotificationKeys { get; set; }
+        private DbSet<Device> Devices { get; set; }
+        private DbSet<DeviceData> DeviceDatas { get; set; }
+#pragma warning restore IDE0051 // Remove unused private members
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,5 +1,5 @@
-﻿@using HealthTracker.Entities.Models.Device
-@model List<Device>
+﻿@using HealthTracker.Entities.Dto.Device
+@model IEnumerable<DeviceDto>
 
 <div>
     <div>
@@ -22,7 +22,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach(Device device in Model)
+            @foreach (DeviceDto device in Model)
             {
                 <tr>
                     <td>@device.DeviceGuid</td>
