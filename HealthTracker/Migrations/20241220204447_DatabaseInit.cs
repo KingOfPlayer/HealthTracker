@@ -46,12 +46,12 @@ namespace HealthTracker.Migrations
                 {
                     DeviceDataId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    DeviceId = table.Column<int>(type: "int", nullable: false),
+                    dateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Spo2 = table.Column<float>(type: "real", nullable: false),
-                    Bpm = table.Column<int>(type: "int", nullable: false),
-                    Temp = table.Column<int>(type: "int", nullable: false),
-                    Humidity = table.Column<int>(type: "int", nullable: false),
-                    DeviceGuid = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DeviceId = table.Column<int>(type: "int", nullable: false)
+                    Bpm = table.Column<float>(type: "real", nullable: false),
+                    Temp = table.Column<float>(type: "real", nullable: false),
+                    Humidity = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {

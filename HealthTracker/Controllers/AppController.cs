@@ -19,7 +19,7 @@ namespace HealthTracker.Controllers
         }
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public async Task<IActionResult> NewDevice([FromForm] NewDeviceDto newDeviceDto)
+        public async Task<IActionResult> NewDevice([FromForm] DeviceNameDto newDeviceDto)
         {
             if (ModelState.IsValid && newDeviceDto.DeviceName is not null)
             {

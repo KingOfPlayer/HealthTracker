@@ -2,15 +2,12 @@
 
 namespace HealthTracker.Services
 {
-    public class ServiceManager : IServiceManager
+    public class ServiceManager(IDeviceService deviceService, IDeviceDataService deviceDataService) : IServiceManager
     {
-        private readonly IDeviceService deviceService;
-
-        public ServiceManager(IDeviceService deviceService)
-        {
-            this.deviceService = deviceService;
-        }
+        private readonly IDeviceService deviceService = deviceService;
+        private readonly IDeviceDataService deviceDataService = deviceDataService;
 
         public IDeviceService DeviceService => deviceService;
+        public IDeviceDataService DeviceDataService => deviceDataService;
     }
 }

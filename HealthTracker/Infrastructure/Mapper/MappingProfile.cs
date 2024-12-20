@@ -10,12 +10,11 @@ namespace HealthTracker.Infrastructure.Mapper
         {
             //Device
             CreateMap<DeviceDto, Device>().ReverseMap();
-            CreateMap<NewDeviceDto, Device>().ReverseMap();
+            CreateMap<DeviceNameDto, Device>().ReverseMap();
             CreateMap<DeviceGuidDto, Device>().ReverseMap();
 
             //Device Data
-            CreateMap<DeviceDataDto, DeviceDto>().ReverseMap();
-            CreateMap<NewDeviceDataDto, DeviceDto>().ReverseMap();
+            CreateMap<DeviceDataDto, DeviceData>().ReverseMap();
         }
     }
 }

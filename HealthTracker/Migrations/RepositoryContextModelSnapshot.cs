@@ -55,23 +55,23 @@ namespace HealthTracker.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DeviceDataId"));
 
-                    b.Property<int>("Bpm")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("DeviceGuid")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<float>("Bpm")
+                        .HasColumnType("real");
 
                     b.Property<int>("DeviceId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Humidity")
-                        .HasColumnType("int");
+                    b.Property<float>("Humidity")
+                        .HasColumnType("real");
 
                     b.Property<float>("Spo2")
                         .HasColumnType("real");
 
-                    b.Property<int>("Temp")
-                        .HasColumnType("int");
+                    b.Property<float>("Temp")
+                        .HasColumnType("real");
+
+                    b.Property<DateTime>("dateTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("DeviceDataId");
 
@@ -108,12 +108,17 @@ namespace HealthTracker.Migrations
             modelBuilder.Entity("HealthTracker.Entities.Models.Device.DeviceData", b =>
                 {
                     b.HasOne("HealthTracker.Entities.Models.Device.Device", "Device")
-                        .WithMany()
+                        .WithMany("DeviceData")
                         .HasForeignKey("DeviceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Device");
+                });
+
+            modelBuilder.Entity("HealthTracker.Entities.Models.Device.Device", b =>
+                {
+                    b.Navigation("DeviceData");
                 });
 #pragma warning restore 612, 618
         }

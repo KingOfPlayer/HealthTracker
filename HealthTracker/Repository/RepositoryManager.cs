@@ -4,16 +4,13 @@ using System.Data.Common;
 
 namespace HealthTracker.Repository
 {
-    public class RepositoryManager : IRepositoryManager
+    public class RepositoryManager(IDeviceRepository deviceRepository, IDeviceDataRepository deviceDataRepository) : IRepositoryManager
     {
-        private readonly IDeviceRepository deviceRepository;
-
-        public RepositoryManager(IDeviceRepository deviceRepository)
-        {
-            this.deviceRepository = deviceRepository;
-        }
+        private readonly IDeviceRepository deviceRepository = deviceRepository;
+        private readonly IDeviceDataRepository deviceDataRepository = deviceDataRepository;
 
         public IDeviceRepository DeviceRepository => deviceRepository;
+        public IDeviceDataRepository DeviceDataRepository => deviceDataRepository;
 
     }
 }

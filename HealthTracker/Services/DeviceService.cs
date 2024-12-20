@@ -12,7 +12,7 @@ namespace HealthTracker.Services
         private readonly IRepositoryManager repositoryManager = repositoryManager;
         private readonly IMapper mapper = mapper;
 
-        public async Task AddNewDevice(NewDeviceDto newDeviceDto)
+        public async Task AddNewDevice(DeviceNameDto newDeviceDto)
         {
             Device device = mapper.Map<Device>(newDeviceDto);
             await repositoryManager.DeviceRepository.CreateDevice(device);
@@ -26,6 +26,11 @@ namespace HealthTracker.Services
         public async Task RemoveDevice(DeviceGuidDto deviceGuidDto)
         {
             await repositoryManager.DeviceRepository.RemoveDevice(deviceGuidDto.DeviceGuid);
+        }
+
+        public async Task<DeviceDetailsDto?> GetDeviceDetails(DeviceGuidDto deviceGuidDto)
+        {
+            return await repositoryManager.DeviceRepository.GetDevice(deviceGuidDto.DeviceGuid).Select(x => new DeviceDetailsDto(x.DeviceId,x.DeviceGuid, x.DeviceName)).FirstOrDefaultAsync();
         }
     }
 }

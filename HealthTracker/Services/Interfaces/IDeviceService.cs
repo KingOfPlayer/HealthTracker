@@ -4,7 +4,8 @@ namespace HealthTracker.Services.Interfaces
 {
     public interface IDeviceService
     {
-        Task AddNewDevice(NewDeviceDto newDeviceDto);
+        Task AddNewDevice(DeviceNameDto newDeviceDto);
+        Task<DeviceDetailsDto?> GetDeviceDetails(DeviceGuidDto deviceGuidDto);
         Task<IEnumerable<DeviceDto>> GetDeviceList();
         Task RemoveDevice(DeviceGuidDto deviceGuidDto);
     }

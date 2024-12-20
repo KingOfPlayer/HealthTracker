@@ -1,4 +1,5 @@
-﻿using HealthTracker.Entities.Models.Device;
+﻿using HealthTracker.Entities.Dto.Device;
+using HealthTracker.Entities.Models.Device;
 
 namespace HealthTracker.Repository.Interfaces
 {
@@ -11,6 +12,7 @@ namespace HealthTracker.Repository.Interfaces
 
         IQueryable<Device> GetDevices();
 
+        Task<bool> DeviceIsExists(Guid guid);
         IQueryable<Device> GetDevice(Guid guid);
     }
 }

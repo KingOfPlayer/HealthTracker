@@ -6,11 +6,12 @@ namespace HealthTracker.Entities.Models.Device
     {
         [Key]
         public int DeviceDataId { get; set; }
+        public int DeviceId { get; set; }
+        public Device? Device { get; set; }
+        public DateTime dateTime { get; set; } = DateTime.Now;
         public float Spo2 { get; set; }
-        public int Bpm { get; set; }
-        public int Temp { get; set; }
-        public int Humidity {  get; set; }
-        public Guid DeviceGuid { get; set; }
-        public required Device Device { get; set; }
+        public float Bpm { get; set; }
+        public float Temp { get; set; }
+        public float Humidity {  get; set; }
     }
 }

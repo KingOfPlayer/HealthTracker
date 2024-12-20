@@ -6,7 +6,7 @@ namespace HealthTracker.Repository.Interfaces
     {
         Task CreateDeviceData(DeviceData DeviceData);
         IQueryable<DeviceData> GetAllDeviceDatas();
-        IQueryable<DeviceData> GetDeviceDatas(Guid guid);
+        IQueryable<DeviceData> GetDeviceDatas(int DeviceId);
         Task RemoveDeviceData(DeviceData DeviceData);
         Task UpdateDeviceData(DeviceData DeviceData);
     }

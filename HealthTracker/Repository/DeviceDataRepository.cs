@@ -9,9 +9,9 @@ namespace HealthTracker.Repository
         public async Task RemoveDeviceData(DeviceData DeviceData) => await Remove<DeviceData>(DeviceData);
         public async Task UpdateDeviceData(DeviceData DeviceData) => await Update<DeviceData>(DeviceData);
         public IQueryable<DeviceData> GetAllDeviceDatas() => GetAll<DeviceData>();
-        public IQueryable<DeviceData> GetDeviceDatas(Guid guid)
+        public IQueryable<DeviceData> GetDeviceDatas(int DeviceId)
         {
-            return Query<DeviceData>(D => D.DeviceGuid == guid);
+            return Query<DeviceData>(D => D.DeviceDataId == DeviceId);
         }
     }
 }

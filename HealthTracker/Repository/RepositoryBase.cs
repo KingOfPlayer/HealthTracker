@@ -40,6 +40,11 @@ namespace HealthTracker.Repository
             await repositoryContext.SaveChangesAsync();
         }
 
+        public async Task<bool> Exists<T>(Expression<Func<T, bool>> expression) where T : class
+        {
+            return await repositoryContext.Set<T>().AnyAsync<T>(expression);
+        }
+
         public async Task Update<T>(T entity) where T : class
         {
             repositoryContext.Update<T>(entity);

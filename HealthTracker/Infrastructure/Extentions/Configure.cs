@@ -13,11 +13,13 @@ namespace HealthTracker.Infrastructure.Extentions
         {
             serviceDescriptors.AddScoped<IRepositoryManager, RepositoryManager>();
             serviceDescriptors.AddScoped<IDeviceRepository, DeviceRepository>();
+            serviceDescriptors.AddScoped<IDeviceDataRepository, DeviceDataRepository>();
         }
         public static void ConfigureServices(this IServiceCollection serviceDescriptors)
         {
             serviceDescriptors.AddScoped<IServiceManager, ServiceManager>();
             serviceDescriptors.AddScoped<IDeviceService, DeviceService>();
+            serviceDescriptors.AddScoped<IDeviceDataService, DeviceDataService>();
 
             serviceDescriptors.AddAutoMapper(typeof(MappingProfile));
         }
