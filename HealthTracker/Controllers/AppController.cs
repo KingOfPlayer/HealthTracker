@@ -27,7 +27,7 @@ namespace HealthTracker.Controllers
         }
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult NewDevice([FromForm] NewDeviceDto newDeviceDto)
+        public async Task<IActionResult> NewDevice([FromForm] NewDeviceDto newDeviceDto)
         {
             if (ModelState.IsValid && newDeviceDto.DeviceName is not null)
             {
@@ -35,7 +35,7 @@ namespace HealthTracker.Controllers
                 mapper.Map(newDeviceDto, newDevice);
                 if (newDevice is not null)
                 {
-                    serviceManager.DeviceService.AddNewDevice(newDevice);
+                    await serviceManager.DeviceService.AddNewDevice(newDevice);
                     return RedirectToAction("DeviceList");
                 }
             }
@@ -46,9 +46,9 @@ namespace HealthTracker.Controllers
             List<Device> deviceList = await serviceManager.DeviceService.GetDeviceList();
             return View(deviceList);
         }
-        public IActionResult RemoveDevice([FromQuery(Name = "device-guid")] Guid guid)
+        public async Task<IActionResult> RemoveDevice([FromQuery(Name = "device-guid")] Guid guid)
         {
-            serviceManager.DeviceService.RemoveDevice(guid);
+            await serviceManager.DeviceService.RemoveDevice(guid);
             return RedirectToAction("DeviceList");
         }
     }
