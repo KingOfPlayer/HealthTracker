@@ -11,7 +11,7 @@
     </div>
 
     <div>
-        @foreach (DeviceDataDto device in ViewBag.DeviceDatas)
+        @* @foreach (DeviceDataDto device in ViewBag.DeviceDatas)
         {
             <p>
                 @device.DateTime <br />
@@ -20,12 +20,163 @@
                 @device.Temp <br />
                 @device.Humidity <br />
             </p>
-        }
+        } *@
+    </div>
+    <div class="d-flex align-content-center justify-content-center">
+        <div class="p-3">
+            <!-- Spo2 Bpm -->
+            <canvas id="Spo2Bmp" width="500" height="500"></canvas>
+        </div>
+        <div class ="p-3">
+            <!-- Temp Humidty -->
+            <canvas id="TempHumidty" width="500" height="500"></canvas>
+        </div>
     </div>
     <div>
-        <!-- Spo2 Bpm -->
-    </div>
-    <div>
-        <!-- Humidty -->
+        <script>
+
+            var Spo2BmpChart;
+            var DateValue = [];
+            var Spo2Values = [];
+            var BmpValues = [];
+            var TempHumidtyChart;
+            var TempValues = [];
+            var HumidtyValues = [];
+
+            function updateChart(){
+                Spo2BmpChart = new Chart("Spo2Bmp", {
+                    type: "line",
+                    data: {
+                        labels: DateValue,
+                        datasets: [{
+                            label: "Bmp",
+                            fill: false,
+                            lineTension: 0.1,
+                            backgroundColor: "rgba(209, 30, 6,0.7)",
+                            borderColor: "rgba(209, 30, 6,1)",
+                            data: BmpValues
+                        },{
+                            label: "Spo2",
+                            fill: false,
+                            lineTension: 0.1,
+                            backgroundColor: "rgba(7, 40, 184,1.0)",
+                            borderColor: "rgba(7, 40, 184,0.6)",
+                            data: Spo2Values
+                        }]
+                    },
+                    options: {
+                        legend: { display: false },
+                        scales: {
+                            y: {
+                                suggestedMin: 0,
+                                suggestedMax: 100
+                            }, x: {
+                                type: 'time',
+                                time: {
+                                    parser: 'YYYY-MM-DDTHH:mm:ss.SSSSSSS',
+                                    tooltipFormat: 'DD MMM YYYY, HH:mm:ss',
+                                    unit: 'hour',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Tarih'
+                                }
+                            },
+                        }
+                    }
+                });
+                TempHumidtyChart = new Chart("TempHumidty", {
+                    type: "line",
+                    data: {
+                        labels: DateValue,
+                        datasets: [{
+                            label: "Temp",
+                            yAxisID: 'temp',
+                            fill: false,
+                            lineTension: 0,
+                            backgroundColor: "rgba(9, 219, 139,0.5)",
+                            borderColor: "rgba(9, 219, 139,0.6)",
+                            data: TempValues
+                        }, {
+                            label: "Humidty",
+                            yAxisID: 'humidty',
+                            fill: false,
+                            lineTension: 0,
+                            backgroundColor: "rgba(201, 8, 204,0.5)",
+                            borderColor: "rgba(201, 8, 204,0.6)",
+                            data: HumidtyValues
+                        }]
+                    },
+                    options: {
+                        legend: { display: false },
+                        scales: {
+                            temp: {
+                                type: 'linear',
+                                position: 'left',
+                                ticks:
+                                {
+                                    beginAtZero: true,
+                                    color: 'rgba(9, 219, 139,1)'
+                                },
+                                min: 20,
+                                max: 40
+                            },
+                            humidty: {
+                                type: 'linear',
+                                position: 'right',
+                                ticks:
+                                {
+                                    beginAtZero: true,
+                                    color: 'rgba(201, 8, 204,1)'
+                                },
+                                grid: {
+                                    drawOnChartArea: false
+                                },
+                                min: 0,
+                                max: 100
+                            },x: {
+                                type: 'time',
+                                time: {
+                                    parser: 'YYYY-MM-DDTHH:mm:ss.SSSSSSS',
+                                    tooltipFormat: 'DD MMM YYYY, HH:mm:ss',
+                                    unit: 'hour',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Tarih'
+                                }
+                            },
+                        }
+                    }
+                });
+            }
+
+            $(function () { 
+                $.ajax({
+                    type: 'GET',
+                    dataType: "json",
+                    url: 'https://localhost/api/Device/data',
+                    headers: {
+                        'Device-Guid': '@ViewBag.DeviceGuid',
+                    },
+                    success: function (response) {
+                        $.each(response, function (k, v) {
+                            DateValue.push(v["dateTime"]);
+                            Spo2Values.push(v["spo2"]);
+                            BmpValues.push(v["bpm"]);
+                            TempValues.push(v["temp"]);
+                            HumidtyValues.push(v["humidity"]);
+                        });
+                        console.log(DateValue);
+                        console.log(Spo2Values);
+                        console.log(BmpValues);
+                        console.log(TempValues);
+                        console.log(HumidtyValues);
+                        updateChart();
+                    }
+                });
+            });
+           
+        </script>
     </div>
 </div>

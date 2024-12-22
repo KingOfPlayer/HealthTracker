@@ -29,7 +29,8 @@
                     <td>@device.DeviceName</td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-danger" asp-action="RemoveDevice" asp-route-device-guid="@device.DeviceGuid"><i class="fa-solid fa-trash"></i></a>
+                            <a class="btn btn-info px-3" asp-action="DeviceDetails" asp-route-id="@device.DeviceGuid"><i class="fa-solid fa-info"></i></a>
+                            <a class="btn btn-danger px-3" asp-action="RemoveDevice" asp-route-device-guid="@device.DeviceGuid"><i class="fa-solid fa-trash"></i></a>
                         </div>
                     </td>
                 </tr>

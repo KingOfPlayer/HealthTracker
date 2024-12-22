@@ -13,6 +13,18 @@
     {
       "library": "font-awesome@6.7.1",
       "destination": "wwwroot\\lib\\font-awesome"
+    },
+    {
+      "library": "Chart.js@4.4.1",
+      "destination": "wwwroot/lib/Chart.js/"
+    },
+    {
+      "library": "chartjs-adapter-moment@1.0.1",
+      "destination": "wwwroot/lib/chartjs-adapter-moment/"
+    },
+    {
+      "library": "moment.js@2.30.1",
+      "destination": "wwwroot/lib/moment.js/"
     }
   ]
 }
