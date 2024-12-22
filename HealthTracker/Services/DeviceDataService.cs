@@ -23,5 +23,10 @@ namespace HealthTracker.Services
         {
             return await repositoryManager.DeviceDataRepository.GetDeviceDatas(deviceDetailsDto.DeviceId).Select(x => new DeviceDataDto(x.dateTime,x.Spo2,x.Bpm,x.Temp,x.Humidity)).ToListAsync();
         }
+
+        public async Task<IEnumerable<DeviceDataDto>> GetDeviceDatas(DeviceDetailsDto deviceDetailsDto, int length)
+        {
+            return (await repositoryManager.DeviceDataRepository.GetDeviceDatas(deviceDetailsDto.DeviceId).Select(x => new DeviceDataDto(x.dateTime, x.Spo2, x.Bpm, x.Temp, x.Humidity)).ToListAsync()).TakeLast(length);
+        }
     }
 }

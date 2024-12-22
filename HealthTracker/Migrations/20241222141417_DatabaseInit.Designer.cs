@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealthTracker.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20241220204447_DatabaseInit")]
+    [Migration("20241222141417_DatabaseInit")]
     partial class DatabaseInit
     {
         /// <inheritdoc />

@@ -34,16 +34,17 @@
     </div>
     <div>
         <script>
+            var last = 25;
 
-            var Spo2BmpChart;
             var DateValue = [];
+            var Spo2BmpChart;
             var Spo2Values = [];
             var BmpValues = [];
             var TempHumidtyChart;
             var TempValues = [];
             var HumidtyValues = [];
 
-            function updateChart(){
+            function crateChart() {
                 Spo2BmpChart = new Chart("Spo2Bmp", {
                     type: "line",
                     data: {
@@ -55,7 +56,7 @@
                             backgroundColor: "rgba(209, 30, 6,0.7)",
                             borderColor: "rgba(209, 30, 6,1)",
                             data: BmpValues
-                        },{
+                        }, {
                             label: "Spo2",
                             fill: false,
                             lineTension: 0.1,
@@ -118,8 +119,8 @@
                                     beginAtZero: true,
                                     color: 'rgba(9, 219, 139,1)'
                                 },
-                                min: 20,
-                                max: 40
+                                suggestedMin: 20,
+                                suggestedMax: 40
                             },
                             humidty: {
                                 type: 'linear',
@@ -132,9 +133,9 @@
                                 grid: {
                                     drawOnChartArea: false
                                 },
-                                min: 0,
-                                max: 100
-                            },x: {
+                                suggestedMin: 0,
+                                suggestedMax: 100
+                            }, x: {
                                 type: 'time',
                                 time: {
                                     parser: 'YYYY-MM-DDTHH:mm:ss.SSSSSSS',
@@ -151,15 +152,31 @@
                 });
             }
 
-            $(function () { 
+            function updateChart(){
+                Spo2BmpChart.data.labels = DateValue;
+                Spo2BmpChart.data.datasets[0].data = BmpValues;
+                Spo2BmpChart.data.datasets[1].data = Spo2Values;
+                Spo2BmpChart.update();
+                TempHumidtyChart.data.labels = DateValue;
+                TempHumidtyChart.data.datasets[0].data = TempValues;
+                TempHumidtyChart.data.datasets[1].data = HumidtyValues;
+                TempHumidtyChart.update();
+
+            }
+            function getNewData(){
                 $.ajax({
                     type: 'GET',
                     dataType: "json",
-                    url: 'https://localhost/api/Device/data',
+                    url: 'http://' + window.location.host + '/api/Device/datas?Length=' + last,
                     headers: {
                         'Device-Guid': '@ViewBag.DeviceGuid',
                     },
                     success: function (response) {
+                        DateValue = [];
+                        Spo2Values = [];
+                        BmpValues = [];
+                        TempValues = [];
+                        HumidtyValues = [];
                         $.each(response, function (k, v) {
                             DateValue.push(v["dateTime"]);
                             Spo2Values.push(v["spo2"]);
@@ -167,14 +184,17 @@
                             TempValues.push(v["temp"]);
                             HumidtyValues.push(v["humidity"]);
                         });
-                        console.log(DateValue);
-                        console.log(Spo2Values);
-                        console.log(BmpValues);
-                        console.log(TempValues);
-                        console.log(HumidtyValues);
                         updateChart();
                     }
                 });
+            }
+
+            $(function () { 
+                crateChart();
+                getNewData();
+                setInterval(function () {
+                    getNewData();
+                },5000);
             });
            
         </script>

@@ -24,12 +24,14 @@ namespace HealthTracker.ApiControllers
             if (deviceDataDto is null)
                 return BadRequest("Invalid Device Data");
 
-            DeviceDetailsDto deviceDetailsDto = await serviceManager.DeviceService.GetDeviceDetails(new DeviceGuidDto(DeviceGuid));
+            DeviceDetailsDto? deviceDetailsDto = await serviceManager.DeviceService.GetDeviceDetails(new DeviceGuidDto(DeviceGuid));
             if (deviceDetailsDto == null)
                 return NotFound("Invalid Device Guid");
             
             if (deviceDataDto is null)
                 return BadRequest("Invalid Device Data");
+
+            Console.WriteLine(deviceDataDto.Spo2);
 
             await serviceManager.DeviceDataService.CreateDeviceData(deviceDataDto, deviceDetailsDto);
 
@@ -37,18 +39,35 @@ namespace HealthTracker.ApiControllers
         }
 
         [HttpGet("data")]
-        public async Task<IActionResult> NewData()
+        public async Task<IActionResult> GetData()
         {
 
             Guid DeviceGuid;
             if (!Guid.TryParse(Request.Headers["Device-Guid"].ToString(), out DeviceGuid))
                 return BadRequest("Bad Device Guid");
 
-            DeviceDetailsDto deviceDetailsDto = await serviceManager.DeviceService.GetDeviceDetails(new DeviceGuidDto(DeviceGuid));
+            DeviceDetailsDto? deviceDetailsDto = await serviceManager.DeviceService.GetDeviceDetails(new DeviceGuidDto(DeviceGuid));
             if (deviceDetailsDto == null)
                 return NotFound("Invalid Device Guid");
 
             IEnumerable<DeviceDataDto> deviceDataDtos = await serviceManager.DeviceDataService.GetDeviceDatas(deviceDetailsDto);
+
+            return new JsonResult(deviceDataDtos);
+        }
+
+        [HttpGet("datas")]
+        public async Task<IActionResult> GetDatas([FromQuery(Name = "Length")] int length)
+        {
+
+            Guid DeviceGuid;
+            if (!Guid.TryParse(Request.Headers["Device-Guid"].ToString(), out DeviceGuid))
+                return BadRequest("Bad Device Guid");
+
+            DeviceDetailsDto? deviceDetailsDto = await serviceManager.DeviceService.GetDeviceDetails(new DeviceGuidDto(DeviceGuid));
+            if (deviceDetailsDto == null)
+                return NotFound("Invalid Device Guid");
+
+            IEnumerable<DeviceDataDto> deviceDataDtos = await serviceManager.DeviceDataService.GetDeviceDatas(deviceDetailsDto, length);
 
             return new JsonResult(deviceDataDtos);
         }

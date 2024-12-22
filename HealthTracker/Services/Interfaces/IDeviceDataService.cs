@@ -6,5 +6,6 @@ namespace HealthTracker.Services.Interfaces
     {
         Task CreateDeviceData(NewDeviceDataDto deviceDataDto, DeviceDetailsDto deviceDetailsDto);
         Task<IEnumerable<DeviceDataDto>> GetDeviceDatas(DeviceDetailsDto deviceDetailsDto);
+        Task<IEnumerable<DeviceDataDto>> GetDeviceDatas(DeviceDetailsDto deviceDetailsDto, int length);
     }
 }
