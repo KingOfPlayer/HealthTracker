@@ -15,7 +15,7 @@ This repo aim store Spo2, BPM, Temperature and humidity data from ESP32-WROOM de
   >`dotnet user-secrets init`
 2. Set your SQL Connection for SQL Database  
   >Execute in HealthTracker folder  
-  >`dotnet user-secrets set "ConnectionStrings:mssqlconnection" "Server=localhost;Database=mdhapp;User Id=<USERID>;Password=<PASSWORD>;Trusted_Connection=False; Encrypt=True;`  
+  >`dotnet user-secrets set "ConnectionStrings:mssqlconnection" "Server=localhost;Database=<DBNAME>;User Id=<USERID>;Password=<PASSWORD>;Trusted_Connection=False; Encrypt=True;`  
   
 ### Run The Project
   >Execute in HealthTracker folder  
